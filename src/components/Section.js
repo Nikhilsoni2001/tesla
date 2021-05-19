@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Fade from "react-reveal/Fade";
 
-const Section = ({ title, description, lBtn, rBtn, backgroundImg }) => {
+const Section = ({ key, title, description, lBtn, rBtn, backgroundImg }) => {
   return (
-    <Wrap bgImage={backgroundImg}>
+    <Wrap bgImage={backgroundImg} key={key}>
       <Fade bottom>
         <ItemText>
           <h1>{title}</h1>

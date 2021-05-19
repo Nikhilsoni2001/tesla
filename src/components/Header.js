@@ -2,9 +2,24 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
+import { selectCars } from "../features/car/carSlice";
+import { useSelector } from "react-redux";
+import carList from "../cars";
 
 const Header = () => {
   const [burgerStatus, setBurgerStatus] = useState(false);
+  const cars = useSelector(selectCars);
+
+  const getBurgerItems = (item) => {
+    return (
+      <li>
+        <a key={item.key} href="#">
+          {item.name}
+        </a>
+      </li>
+    );
+  };
+
   return (
     <Container>
       <a href="/">
@@ -12,10 +27,12 @@ const Header = () => {
       </a>
 
       <Menu>
-        <a href="#">Model S</a>
-        <a href="#">Model 3</a>
-        <a href="#">Model X</a>
-        <a href="#">Model Y</a>
+        {cars &&
+          cars.map((car, index) => (
+            <a key={index} href="#">
+              {car}
+            </a>
+          ))}
       </Menu>
 
       <RightMenu>
@@ -29,33 +46,15 @@ const Header = () => {
           <CustomClose onClick={() => setBurgerStatus(false)} />
         </CloseWrapper>
 
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Used Inventory</a>
-        </li>
-        <li>
-          <a href="#">Trade-in</a>
-        </li>
-        <li>
-          <a href="#">Cybertruck</a>
-        </li>
-        <li>
-          <a href="#">Roadster</a>
-        </li>
-        <li>
-          <a href="#">Semi</a>
-        </li>
-        <li>
-          <a href="#">Charging</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
+        {cars &&
+          cars.map((car, index) => (
+            <li>
+              <a key={index} href="#">
+                {car}
+              </a>
+            </li>
+          ))}
+        {carList.burgerItems.map(getBurgerItems)}
       </BurgerNav>
     </Container>
   );
